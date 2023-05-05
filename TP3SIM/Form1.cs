@@ -27,19 +27,32 @@ namespace TP3SIM
         int semanas = 0;
 
         double random_demanda;
-        int demanda;
-        double random_falla;
-        
+        int demanda=0;
+        double random_falla1;
+        double random_falla2;
+        double random_falla3;
+        double random_falla4;
+        double random_falla5;
+        double random_falla6;
+
         int stock_Inicial = 7;
         int stock_Final;
-        string fallada;
+        string fallada1="";
+        string fallada2 = "";
+        string fallada3 = "";
+        string fallada4 = "";
+        string fallada5 = "";
+        string fallada6 = "";
+                
         string pide;
         double random_demora;
         int demora;
+        int cantidadFalladas;
         int llegada;
         int costoTenencia;
         int costoPedido;
         int costoAgotamiento;
+        int agotamiento;
         int costoTotal;
         int costoAcumulado;
 
@@ -72,6 +85,7 @@ namespace TP3SIM
                 semanas = 0;
                 dgv_simulaciones.Rows.Clear();
                 //limpiarVariables();
+                
 
                 if (desde < simulaciones)
                 {
@@ -113,6 +127,7 @@ namespace TP3SIM
                         }
 
                     }
+                   
 
 
 
@@ -132,9 +147,41 @@ namespace TP3SIM
 
         public void simulacion()
         {
+            pide = "NO";
+            
             semanas++;
             random_demanda = rnd.NextDouble();
             BuscarDemanda();
+
+            if (/*pide == "SI" &&*/ llegada == semanas)
+            {
+
+                cantidadFalladas = 0;
+
+                random_falla1 = rnd.NextDouble();
+                random_falla2 = rnd.NextDouble();
+                random_falla3 = rnd.NextDouble();
+                random_falla4 = rnd.NextDouble();
+                random_falla5 = rnd.NextDouble();
+                random_falla6 = rnd.NextDouble();
+                BuscarFalla(random_falla1, random_falla2, random_falla3, random_falla4, random_falla5, random_falla6);
+                stock_Final = stock_Inicial + 6 - cantidadFalladas;
+
+            }
+            else
+            {
+                stock_Final = stock_Inicial - demanda;
+                if (stock_Final < 3)
+                {
+                    if (stock_Final < 0) { agotamiento = stock_Final * -1; stock_Final = 0; }
+                    pide = "SI";
+                    random_demora = rnd.NextDouble();
+                    BuscarDemora();
+                    llegada = semanas + demora;
+
+                }
+            }
+            stock_Inicial = stock_Final;
             //random_pedido = rnd.NextDouble();
 
             /*
@@ -198,6 +245,38 @@ namespace TP3SIM
             }*/
         }
 
+        public void BuscarDemora()
+        {
+            if (random_demora < 0.3)
+            {
+                demora = 1;
+            }
+            else
+            {
+                if (random_demora < 0.7)
+                {
+                    demora = 2;
+                }
+                else
+                {
+                    if (random_demora < 1)
+                    {
+                        demora = 3;
+                    }
+                    
+                }
+            }
+        }
+
+        public void BuscarFalla(double f1, double f2, double f3, double f4, double f5, double f6)
+        {
+            if (random_falla1 <= 0.70) { fallada1 = "NO"; } else { fallada1 = "SI"; cantidadFalladas++; }
+            if (random_falla2 <= 0.70) { fallada2 = "NO"; } else { fallada2 = "SI"; cantidadFalladas++; }
+            if (random_falla3 <= 0.70) { fallada3 = "NO"; } else { fallada3 = "SI"; cantidadFalladas++; }
+            if (random_falla4 <= 0.70) { fallada4 = "NO"; } else { fallada4 = "SI"; cantidadFalladas++; }
+            if (random_falla5 <= 0.70) { fallada5 = "NO"; } else { fallada5 = "SI"; cantidadFalladas++; }
+            if (random_falla6 <= 0.70) { fallada6 = "NO"; } else { fallada6 = "SI"; cantidadFalladas++; }
+        }
 
         public void BuscarDemanda()
         {
@@ -233,11 +312,18 @@ namespace TP3SIM
 
         public void cargarGrilla()
         {
-            dgv_simulaciones.Rows.Add(Convert.ToString(semanas), Math.Round(random_demanda, 4),
-                demanda); /*, Math.Round(random_pedido, 4), pedido, pedidoNeto, stockRemanenteActual, stockReal,
-                excedenteStock, costoMantenimiento, costoSobrepaso, costoPedido, costoTotal,
-                porcentajeCosto, porcentajeMinActual, porcentajeMaxActual);*/
-        }
+            if (semanas == llegada)
+            {
+                dgv_simulaciones.Rows.Add(Convert.ToString(semanas), Math.Round(random_demanda, 4),
+                demanda, stock_Inicial, Math.Round(random_falla1, 4), fallada1, Math.Round(random_falla2, 4), fallada2, Math.Round(random_falla3, 4), fallada3, Math.Round(random_falla4, 4), fallada4, Math.Round(random_falla5, 4), fallada5, Math.Round(random_falla6, 4), fallada6, cantidadFalladas, stock_Final, pide, random_demora, demora, llegada);
 
+            }
+            else
+            {
+                dgv_simulaciones.Rows.Add(Convert.ToString(semanas), Math.Round(random_demanda, 4),
+                demanda, stock_Inicial, "", "","","","","","","","" ,"","","",cantidadFalladas, stock_Final, pide, random_demora, demora, llegada);
+            }
+
+        }
     }
 }
