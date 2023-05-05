@@ -56,6 +56,7 @@ namespace TP3SIM
         int costoTotal;
         int costoAcumulado;
 
+        bool yaPidio=false;
         // PARA ABAJO ES EL TP ANTERIOR
         int pedidoNeto;
 
@@ -152,10 +153,10 @@ namespace TP3SIM
             semanas++;
             random_demanda = rnd.NextDouble();
             BuscarDemanda();
-
+            
             if (/*pide == "SI" &&*/ llegada == semanas)
             {
-
+                yaPidio = false;
                 cantidadFalladas = 0;
 
                 random_falla1 = rnd.NextDouble();
@@ -171,10 +172,11 @@ namespace TP3SIM
             else
             {
                 stock_Final = stock_Inicial - demanda;
-                if (stock_Final < 3)
+                if (stock_Final < 3 && yaPidio==false)
                 {
                     if (stock_Final < 0) { agotamiento = stock_Final * -1; stock_Final = 0; }
                     pide = "SI";
+                    yaPidio = true;
                     random_demora = rnd.NextDouble();
                     BuscarDemora();
                     llegada = semanas + demora;
@@ -320,8 +322,17 @@ namespace TP3SIM
             }
             else
             {
-                dgv_simulaciones.Rows.Add(Convert.ToString(semanas), Math.Round(random_demanda, 4),
-                demanda, stock_Inicial, "", "","","","","","","","" ,"","","",cantidadFalladas, stock_Final, pide, random_demora, demora, llegada);
+                if (llegada<semanas)
+                {
+                    dgv_simulaciones.Rows.Add(Convert.ToString(semanas), Math.Round(random_demanda, 4),
+                demanda, stock_Inicial, "", "", "", "", "", "", "", "", "", "", "", "", cantidadFalladas, stock_Final, pide, random_demora, "", "");
+                }
+                else
+                {
+                    dgv_simulaciones.Rows.Add(Convert.ToString(semanas), Math.Round(random_demanda, 4),
+                demanda, stock_Inicial, "", "", "", "", "", "", "", "", "", "", "", "", cantidadFalladas, stock_Final, pide, random_demora, "", llegada);
+                }
+                
             }
 
         }
