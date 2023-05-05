@@ -69,6 +69,16 @@
             this.Column25 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column26 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column27 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtProb0 = new System.Windows.Forms.TextBox();
+            this.txtProb1 = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtProb2 = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtProb3 = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_simulaciones)).BeginInit();
             this.SuspendLayout();
             // 
@@ -412,11 +422,107 @@
             this.Column27.ReadOnly = true;
             this.Column27.Width = 106;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(628, 53);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(82, 13);
+            this.label4.TabIndex = 15;
+            this.label4.Text = "Probabilidad (%)";
+            // 
+            // txtProb0
+            // 
+            this.txtProb0.Location = new System.Drawing.Point(724, 50);
+            this.txtProb0.Name = "txtProb0";
+            this.txtProb0.Size = new System.Drawing.Size(42, 20);
+            this.txtProb0.TabIndex = 16;
+            this.txtProb0.Text = "50";
+            // 
+            // txtProb1
+            // 
+            this.txtProb1.Location = new System.Drawing.Point(772, 50);
+            this.txtProb1.Name = "txtProb1";
+            this.txtProb1.Size = new System.Drawing.Size(42, 20);
+            this.txtProb1.TabIndex = 18;
+            this.txtProb1.Text = "15";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(786, 30);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(13, 13);
+            this.label5.TabIndex = 17;
+            this.label5.Text = "1";
+            // 
+            // txtProb2
+            // 
+            this.txtProb2.Location = new System.Drawing.Point(820, 50);
+            this.txtProb2.Name = "txtProb2";
+            this.txtProb2.Size = new System.Drawing.Size(42, 20);
+            this.txtProb2.TabIndex = 20;
+            this.txtProb2.Text = "25";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(881, 30);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(13, 13);
+            this.label6.TabIndex = 19;
+            this.label6.Text = "3";
+            // 
+            // txtProb3
+            // 
+            this.txtProb3.Location = new System.Drawing.Point(868, 50);
+            this.txtProb3.Name = "txtProb3";
+            this.txtProb3.Size = new System.Drawing.Size(42, 20);
+            this.txtProb3.TabIndex = 22;
+            this.txtProb3.Text = "10";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(737, 30);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(13, 13);
+            this.label7.TabIndex = 21;
+            this.label7.Text = "0";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(599, 30);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(111, 13);
+            this.label8.TabIndex = 23;
+            this.label8.Text = "Demanda por semana";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(835, 30);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(13, 13);
+            this.label9.TabIndex = 24;
+            this.label9.Text = "2";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1186, 663);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.txtProb3);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.txtProb2);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.txtProb1);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.txtProb0);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.dgv_simulaciones);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txt_hasta);
@@ -470,6 +576,16 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column25;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column26;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column27;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtProb0;
+        private System.Windows.Forms.TextBox txtProb1;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox txtProb2;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox txtProb3;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
     }
 }
 

@@ -57,86 +57,81 @@ namespace TP3SIM
         int costoAcumulado;
 
         bool yaPidio=false;
-        // PARA ABAJO ES EL TP ANTERIOR
-        int pedidoNeto;
-
-        int stockReal;
-        int stockRemanenteAnterior;
-        int stockRemanenteActual;
-
-        // variables para costo
-        int costoMantenimiento;
-        //int costoPedido;
-        int costoSobrepaso;
-        //int costoTotal;
-
-        // variables adicionales
-        int excedenteStock;
-        int porcentajeCosto;
-        int porcentajeMinActual;
-        int porcentajeMaxActual;
+        
 
         private void btn_simular_Click(object sender, EventArgs e)
         {
             if (txt_simulacion.Text != "" && txt_desde.Text != "")
             {
-                simulaciones = Convert.ToInt32(txt_simulacion.Text);
-                desde = Convert.ToInt32(txt_desde.Text);
-
-                semanas = 0;
-                dgv_simulaciones.Rows.Clear();
-                //limpiarVariables();
-                
-
-                if (desde < simulaciones)
+                double p0 = Convert.ToDouble(txtProb0.Text);
+                double p1 = Convert.ToDouble(txtProb1.Text);
+                double p2 = Convert.ToDouble(txtProb2.Text);
+                double p3 = Convert.ToDouble(txtProb3.Text);
+                if ((p0 + p1 + p2 + p3) == 100 && (p0 > 0 && p1 > 0 && p2 > 0 && p3 >0)) //Valida que las probabilidades sumen 100%
                 {
-                    hasta = desde + 400; //Consultar si el hasta se ingresa por parametro
-                    txt_hasta.Text = Convert.ToString(desde + 400);
 
-                    for (int i = 0; i < desde; i++)
+                    simulaciones = Convert.ToInt32(txt_simulacion.Text);
+                    desde = Convert.ToInt32(txt_desde.Text);
+
+                    semanas = 0;
+                    dgv_simulaciones.Rows.Clear();
+                    //limpiarVariables();
+
+
+                    if (desde < simulaciones)
                     {
-                        simulacion();
-                    }
-                    cargarGrilla();
+                        hasta = desde + 400; //Consultar si el hasta se ingresa por parametro
+                        txt_hasta.Text = Convert.ToString(desde + 400);
 
-
-                    if (hasta > simulaciones)
-                    {
-                        for (int i = 0; i < (simulaciones - desde); i++)
+                        for (int i = 0; i < desde; i++)
                         {
                             simulacion();
-                            cargarGrilla();
                         }
+                        cargarGrilla();
+
+
+                        if (hasta > simulaciones)
+                        {
+                            for (int i = 0; i < (simulaciones - desde); i++)
+                            {
+                                simulacion();
+                                cargarGrilla();
+                            }
+                        }
+                        else
+                        {
+                            for (int i = 0; i < 400; i++)
+                            {
+                                simulacion();
+                                cargarGrilla();
+                            }
+
+                            for (int i = 0; i < (simulaciones - hasta - 1); i++)
+                            {
+                                simulacion();
+                            }
+
+                            if (hasta != simulaciones)
+                            {
+                                simulacion();
+                                cargarGrilla();
+                            }
+
+                        }
+
+
+
+
+
                     }
                     else
                     {
-                        for (int i = 0; i < 400; i++)
-                        {
-                            simulacion();
-                            cargarGrilla();
-                        }
-
-                        for (int i = 0; i < (simulaciones - hasta - 1); i++)
-                        {
-                            simulacion();
-                        }
-
-                        if (hasta != simulaciones)
-                        {
-                            simulacion();
-                            cargarGrilla();
-                        }
-
+                        MessageBox.Show("Por Favor seleccione un DESDE menor a la cantidad de simulaciones");
                     }
-                   
-
-
-
-
                 }
                 else
                 {
-                    MessageBox.Show("Por Favor seleccione un DESDE menor a la cantidad de simulaciones");
+                    MessageBox.Show("La suma de las probabilidades es distinto de 100%. Ingrese correctamente los %.");
                 }
             }
             else
@@ -282,19 +277,24 @@ namespace TP3SIM
 
         public void BuscarDemanda()
         {
-            if (random_demanda < 0.5)
+            double prob0 = Convert.ToDouble(txtProb0.Text)/100;
+            double prob1 = Convert.ToDouble(txtProb1.Text)/100;
+            double prob2 = Convert.ToDouble(txtProb2.Text)/100;
+
+
+            if (random_demanda < prob0)
             {
                 demanda = 0;
             }
             else
             {
-                if (random_demanda < 0.65)
+                if (random_demanda < (prob0+prob1))
                 {
                     demanda = 1;
                 }
                 else
                 {
-                    if (random_demanda < 0.9)
+                    if (random_demanda < (prob0+prob1+prob2))
                     {
                         demanda = 2;
                     }
