@@ -67,7 +67,7 @@ namespace TP3SIM
                 double p1 = Convert.ToDouble(txtProb1.Text);
                 double p2 = Convert.ToDouble(txtProb2.Text);
                 double p3 = Convert.ToDouble(txtProb3.Text);
-                if ((p0 + p1 + p2 + p3) == 100 && (p0 > 0 && p1 > 0 && p2 > 0 && p3 >0)) //Valida que las probabilidades sumen 100%
+                if ((p0 + p1 + p2 + p3) == 100 && (p0 > 0 && p1 > 0 && p2 > 0 && p3 >0)) //Valida que las probabilidades sumen 100% y no sean menor a 0
                 {
 
                     simulaciones = Convert.ToInt32(txt_simulacion.Text);
@@ -317,7 +317,7 @@ namespace TP3SIM
             if (semanas == llegada)
             {
                 dgv_simulaciones.Rows.Add(Convert.ToString(semanas), Math.Round(random_demanda, 4),
-                demanda, stock_Inicial, Math.Round(random_falla1, 4), fallada1, Math.Round(random_falla2, 4), fallada2, Math.Round(random_falla3, 4), fallada3, Math.Round(random_falla4, 4), fallada4, Math.Round(random_falla5, 4), fallada5, Math.Round(random_falla6, 4), fallada6, cantidadFalladas, stock_Final, pide, random_demora, demora, llegada);
+                demanda, stock_Inicial, Math.Round(random_falla1, 4), fallada1, Math.Round(random_falla2, 4), fallada2, Math.Round(random_falla3, 4), fallada3, Math.Round(random_falla4, 4), fallada4, Math.Round(random_falla5, 4), fallada5, Math.Round(random_falla6, 4), fallada6, cantidadFalladas, stock_Final, pide, Math.Round(random_demora,4), demora, llegada);
 
             }
             else
@@ -325,12 +325,12 @@ namespace TP3SIM
                 if (llegada<semanas)
                 {
                     dgv_simulaciones.Rows.Add(Convert.ToString(semanas), Math.Round(random_demanda, 4),
-                demanda, stock_Inicial, "", "", "", "", "", "", "", "", "", "", "", "", cantidadFalladas, stock_Final, pide, random_demora, "", "");
+                demanda, stock_Inicial, "", "", "", "", "", "", "", "", "", "", "", "", cantidadFalladas, stock_Final, pide, Math.Round(random_demora,4), demora, "");
                 }
                 else
                 {
                     dgv_simulaciones.Rows.Add(Convert.ToString(semanas), Math.Round(random_demanda, 4),
-                demanda, stock_Inicial, "", "", "", "", "", "", "", "", "", "", "", "", cantidadFalladas, stock_Final, pide, random_demora, "", llegada);
+                demanda, stock_Inicial, "", "", "", "", "", "", "", "", "", "", "", "", cantidadFalladas, stock_Final, pide, Math.Round(random_demora, 4) , demora, llegada);
                 }
                 
             }
