@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgv_simulaciones = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -91,8 +91,8 @@
             this.label16 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.txtFallaNo = new System.Windows.Forms.TextBox();
+            this.txtFallaSi = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_simulaciones)).BeginInit();
             this.SuspendLayout();
             // 
@@ -139,9 +139,9 @@
             // Column1
             // 
             this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Column1.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            dataGridViewCellStyle13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Column1.DefaultCellStyle = dataGridViewCellStyle13;
             this.Column1.HeaderText = "Semanas";
             this.Column1.MinimumWidth = 6;
             this.Column1.Name = "Column1";
@@ -151,8 +151,8 @@
             // Column2
             // 
             this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
-            this.Column2.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle14.BackColor = System.Drawing.Color.White;
+            this.Column2.DefaultCellStyle = dataGridViewCellStyle14;
             this.Column2.HeaderText = "Rnd Demanda";
             this.Column2.MinimumWidth = 6;
             this.Column2.Name = "Column2";
@@ -163,8 +163,8 @@
             // Column3
             // 
             this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
-            this.Column3.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle15.BackColor = System.Drawing.Color.White;
+            this.Column3.DefaultCellStyle = dataGridViewCellStyle15;
             this.Column3.HeaderText = "Demanda";
             this.Column3.MinimumWidth = 6;
             this.Column3.Name = "Column3";
@@ -174,8 +174,8 @@
             // Column4
             // 
             this.Column4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
-            this.Column4.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle16.BackColor = System.Drawing.Color.White;
+            this.Column4.DefaultCellStyle = dataGridViewCellStyle16;
             this.Column4.HeaderText = "Stock Inicial";
             this.Column4.MinimumWidth = 6;
             this.Column4.Name = "Column4";
@@ -185,8 +185,8 @@
             // Column5
             // 
             this.Column5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
-            this.Column5.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle17.BackColor = System.Drawing.Color.White;
+            this.Column5.DefaultCellStyle = dataGridViewCellStyle17;
             this.Column5.HeaderText = "Rnd Falla";
             this.Column5.MinimumWidth = 6;
             this.Column5.Name = "Column5";
@@ -196,8 +196,8 @@
             // Column6
             // 
             this.Column6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
-            this.Column6.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle18.BackColor = System.Drawing.Color.White;
+            this.Column6.DefaultCellStyle = dataGridViewCellStyle18;
             this.Column6.HeaderText = "Pedido 1 fallado?";
             this.Column6.MinimumWidth = 6;
             this.Column6.Name = "Column6";
@@ -525,7 +525,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(804, 93);
+            this.label10.Location = new System.Drawing.Point(806, 97);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(13, 13);
             this.label10.TabIndex = 34;
@@ -542,7 +542,7 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(837, 113);
+            this.textBox1.Location = new System.Drawing.Point(837, 117);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(42, 20);
             this.textBox1.TabIndex = 32;
@@ -550,7 +550,7 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(789, 113);
+            this.textBox2.Location = new System.Drawing.Point(789, 117);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(42, 20);
             this.textBox2.TabIndex = 30;
@@ -559,7 +559,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(850, 93);
+            this.label13.Location = new System.Drawing.Point(852, 97);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(13, 13);
             this.label13.TabIndex = 29;
@@ -567,7 +567,7 @@
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(741, 113);
+            this.textBox3.Location = new System.Drawing.Point(741, 117);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(42, 20);
             this.textBox3.TabIndex = 28;
@@ -576,7 +576,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(755, 93);
+            this.label14.Location = new System.Drawing.Point(757, 97);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(13, 13);
             this.label14.TabIndex = 27;
@@ -612,7 +612,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(1020, 57);
+            this.label17.Location = new System.Drawing.Point(1019, 93);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(16, 13);
             this.label17.TabIndex = 37;
@@ -621,35 +621,35 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(1020, 93);
+            this.label18.Location = new System.Drawing.Point(1019, 57);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(21, 13);
             this.label18.TabIndex = 38;
             this.label18.Text = "No";
             // 
-            // textBox4
+            // txtFallaNo
             // 
-            this.textBox4.Location = new System.Drawing.Point(1081, 53);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(42, 20);
-            this.textBox4.TabIndex = 39;
-            this.textBox4.Text = "70";
+            this.txtFallaNo.Location = new System.Drawing.Point(1081, 53);
+            this.txtFallaNo.Name = "txtFallaNo";
+            this.txtFallaNo.Size = new System.Drawing.Size(42, 20);
+            this.txtFallaNo.TabIndex = 39;
+            this.txtFallaNo.Text = "70";
             // 
-            // textBox5
+            // txtFallaSi
             // 
-            this.textBox5.Location = new System.Drawing.Point(1081, 90);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(42, 20);
-            this.textBox5.TabIndex = 40;
-            this.textBox5.Text = "30";
+            this.txtFallaSi.Location = new System.Drawing.Point(1081, 90);
+            this.txtFallaSi.Name = "txtFallaSi";
+            this.txtFallaSi.Size = new System.Drawing.Size(42, 20);
+            this.txtFallaSi.TabIndex = 40;
+            this.txtFallaSi.Text = "30";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1186, 663);
-            this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.txtFallaSi);
+            this.Controls.Add(this.txtFallaNo);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.label17);
             this.Controls.Add(this.label16);
@@ -747,8 +747,8 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox txtFallaNo;
+        private System.Windows.Forms.TextBox txtFallaSi;
     }
 }
 

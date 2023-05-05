@@ -50,7 +50,7 @@ namespace TP3SIM
         int cantidadFalladas;
         int llegada;
         int costoTenencia;
-        int costoPedido;
+        int costoPedido=0;
         int costoAgotamiento;
         int agotamiento;
         int costoTotal;
@@ -67,71 +67,80 @@ namespace TP3SIM
                 double p1 = Convert.ToDouble(txtProb1.Text);
                 double p2 = Convert.ToDouble(txtProb2.Text);
                 double p3 = Convert.ToDouble(txtProb3.Text);
+
+                double f0 = Convert.ToDouble(txtFallaNo.Text);
+                double f1 = Convert.ToDouble(txtFallaSi.Text);
                 if ((p0 + p1 + p2 + p3) == 100 && (p0 > 0 && p1 > 0 && p2 > 0 && p3 >0)) //Valida que las probabilidades sumen 100% y no sean menor a 0
                 {
-
-                    simulaciones = Convert.ToInt32(txt_simulacion.Text);
-                    desde = Convert.ToInt32(txt_desde.Text);
-
-                    semanas = 0;
-                    dgv_simulaciones.Rows.Clear();
-                    //limpiarVariables();
-
-
-                    if (desde < simulaciones)
+                    if ((f0 + f1) == 100 && (f0 > 0 && f1 > 0)) //Valida que las probabilidades sumen 100% y no sean menor a 0
                     {
-                        hasta = desde + 400; //Consultar si el hasta se ingresa por parametro
-                        txt_hasta.Text = Convert.ToString(desde + 400);
+                        simulaciones = Convert.ToInt32(txt_simulacion.Text);
+                        desde = Convert.ToInt32(txt_desde.Text);
 
-                        for (int i = 0; i < desde; i++)
+                        semanas = 0;
+                        dgv_simulaciones.Rows.Clear();
+                        //limpiarVariables();
+
+
+                        if (desde < simulaciones)
                         {
-                            simulacion();
-                        }
-                        cargarGrilla();
+                            hasta = desde + 400; //Consultar si el hasta se ingresa por parametro
+                            txt_hasta.Text = Convert.ToString(desde + 400);
 
-
-                        if (hasta > simulaciones)
-                        {
-                            for (int i = 0; i < (simulaciones - desde); i++)
+                            for (int i = 0; i < desde; i++)
                             {
                                 simulacion();
-                                cargarGrilla();
                             }
+                            cargarGrilla();
+
+
+                            if (hasta > simulaciones)
+                            {
+                                for (int i = 0; i < (simulaciones - desde); i++)
+                                {
+                                    simulacion();
+                                    cargarGrilla();
+                                }
+                            }
+                            else
+                            {
+                                for (int i = 0; i < 400; i++)
+                                {
+                                    simulacion();
+                                    cargarGrilla();
+                                }
+
+                                for (int i = 0; i < (simulaciones - hasta - 1); i++)
+                                {
+                                    simulacion();
+                                }
+
+                                if (hasta != simulaciones)
+                                {
+                                    simulacion();
+                                    cargarGrilla();
+                                }
+
+                            }
+
+
+
+
+
                         }
                         else
                         {
-                            for (int i = 0; i < 400; i++)
-                            {
-                                simulacion();
-                                cargarGrilla();
-                            }
-
-                            for (int i = 0; i < (simulaciones - hasta - 1); i++)
-                            {
-                                simulacion();
-                            }
-
-                            if (hasta != simulaciones)
-                            {
-                                simulacion();
-                                cargarGrilla();
-                            }
-
+                            MessageBox.Show("Por Favor seleccione un DESDE menor a la cantidad de simulaciones");
                         }
-
-
-
-
-
                     }
                     else
                     {
-                        MessageBox.Show("Por Favor seleccione un DESDE menor a la cantidad de simulaciones");
+                        MessageBox.Show("La suma de las probabilidades de Falla es distinto de 100%. Ingrese correctamente los %.");
                     }
                 }
                 else
                 {
-                    MessageBox.Show("La suma de las probabilidades es distinto de 100%. Ingrese correctamente los %.");
+                    MessageBox.Show("La suma de las probabilidades de Demanda es distinto de 100%. Ingrese correctamente los %.");
                 }
             }
             else
@@ -169,16 +178,35 @@ namespace TP3SIM
                 stock_Final = stock_Inicial - demanda;
                 if (stock_Final < 3 && yaPidio==false)
                 {
-                    if (stock_Final < 0) { agotamiento = stock_Final * -1; stock_Final = 0; }
+                    if (stock_Final < 0) 
+                    { 
+                        agotamiento = Math.Abs(stock_Final); 
+                        stock_Final = 0;
+                        costoAgotamiento = agotamiento * 50;
+                    }
                     pide = "SI";
+                    costoPedido = 200;
+                    
                     yaPidio = true;
                     random_demora = rnd.NextDouble();
                     BuscarDemora();
                     llegada = semanas + demora;
 
                 }
+                else //VEER
+                {
+                    if (stock_Final < 0)
+                    {
+                        agotamiento = Math.Abs(stock_Final);
+                        stock_Final = 0;
+                        costoAgotamiento = agotamiento * 50;
+                    }
+                }
             }
             stock_Inicial = stock_Final;
+            
+            costoTenencia = stock_Final * 30;
+
             //random_pedido = rnd.NextDouble();
 
             /*
@@ -267,12 +295,14 @@ namespace TP3SIM
 
         public void BuscarFalla(double f1, double f2, double f3, double f4, double f5, double f6)
         {
-            if (random_falla1 <= 0.70) { fallada1 = "NO"; } else { fallada1 = "SI"; cantidadFalladas++; }
-            if (random_falla2 <= 0.70) { fallada2 = "NO"; } else { fallada2 = "SI"; cantidadFalladas++; }
-            if (random_falla3 <= 0.70) { fallada3 = "NO"; } else { fallada3 = "SI"; cantidadFalladas++; }
-            if (random_falla4 <= 0.70) { fallada4 = "NO"; } else { fallada4 = "SI"; cantidadFalladas++; }
-            if (random_falla5 <= 0.70) { fallada5 = "NO"; } else { fallada5 = "SI"; cantidadFalladas++; }
-            if (random_falla6 <= 0.70) { fallada6 = "NO"; } else { fallada6 = "SI"; cantidadFalladas++; }
+            double probNoFalla= Convert.ToDouble(txtFallaNo.Text)/100;
+
+            if (random_falla1 <= probNoFalla) { fallada1 = "NO"; } else { fallada1 = "SI"; cantidadFalladas++; }
+            if (random_falla2 <= probNoFalla) { fallada2 = "NO"; } else { fallada2 = "SI"; cantidadFalladas++; }
+            if (random_falla3 <= probNoFalla) { fallada3 = "NO"; } else { fallada3 = "SI"; cantidadFalladas++; }
+            if (random_falla4 <= probNoFalla) { fallada4 = "NO"; } else { fallada4 = "SI"; cantidadFalladas++; }
+            if (random_falla5 <= probNoFalla) { fallada5 = "NO"; } else { fallada5 = "SI"; cantidadFalladas++; }
+            if (random_falla6 <= probNoFalla) { fallada6 = "NO"; } else { fallada6 = "SI"; cantidadFalladas++; }
         }
 
         public void BuscarDemanda()
@@ -314,26 +344,35 @@ namespace TP3SIM
 
         public void cargarGrilla()
         {
-            if (semanas == llegada)
+            if (pide=="SI")
             {
                 dgv_simulaciones.Rows.Add(Convert.ToString(semanas), Math.Round(random_demanda, 4),
-                demanda, stock_Inicial, Math.Round(random_falla1, 4), fallada1, Math.Round(random_falla2, 4), fallada2, Math.Round(random_falla3, 4), fallada3, Math.Round(random_falla4, 4), fallada4, Math.Round(random_falla5, 4), fallada5, Math.Round(random_falla6, 4), fallada6, cantidadFalladas, stock_Final, pide, Math.Round(random_demora,4), demora, llegada);
-
+                demanda, stock_Inicial, "", "", "", "", "", "", "", "", "", "", "", "", cantidadFalladas, stock_Final, pide, Math.Round(random_demora, 4), demora, llegada);
             }
             else
             {
-                if (llegada<semanas)
+                if (semanas == llegada)
                 {
                     dgv_simulaciones.Rows.Add(Convert.ToString(semanas), Math.Round(random_demanda, 4),
-                demanda, stock_Inicial, "", "", "", "", "", "", "", "", "", "", "", "", cantidadFalladas, stock_Final, pide, Math.Round(random_demora,4), demora, "");
+                    demanda, stock_Inicial, Math.Round(random_falla1, 4), fallada1, Math.Round(random_falla2, 4), fallada2, Math.Round(random_falla3, 4), fallada3, Math.Round(random_falla4, 4), fallada4, Math.Round(random_falla5, 4), fallada5, Math.Round(random_falla6, 4), fallada6, cantidadFalladas, stock_Final, pide,"",""/* Math.Round(random_demora, 4), demora*/, llegada);
+
                 }
                 else
                 {
-                    dgv_simulaciones.Rows.Add(Convert.ToString(semanas), Math.Round(random_demanda, 4),
-                demanda, stock_Inicial, "", "", "", "", "", "", "", "", "", "", "", "", cantidadFalladas, stock_Final, pide, Math.Round(random_demora, 4) , demora, llegada);
+                    if (llegada < semanas)
+                    {
+                        dgv_simulaciones.Rows.Add(Convert.ToString(semanas), Math.Round(random_demanda, 4),
+                    demanda, stock_Inicial, "", "", "", "", "", "", "", "", "", "", "", "", cantidadFalladas, stock_Final, pide,"" /*Math.Round(random_demora, 4)*/, "", "");
+                    }
+                    else
+                    {
+                        dgv_simulaciones.Rows.Add(Convert.ToString(semanas), Math.Round(random_demanda, 4),
+                    demanda, stock_Inicial, "", "", "", "", "", "", "", "", "", "", "", "", cantidadFalladas, stock_Final, pide,"" /* Math.Round(random_demora, 4)*/, "", llegada);
+                    }
+
                 }
-                
             }
+            
 
         }
     }
