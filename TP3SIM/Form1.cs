@@ -49,9 +49,9 @@ namespace TP3SIM
         int demora;
         int cantidadFalladas;
         int llegada;
-        int costoTenencia;
-        int costoPedido = 0;
-        int costoAgotamiento;
+        double costoTenencia;
+        double costoPedido = 0;
+        double costoAgotamiento;
         int agotamiento;
         double costoTotal;
         double costoAcumulado;
@@ -193,7 +193,7 @@ namespace TP3SIM
         public void simulacion(int experimentos, int desde, int hasta)
         {
             int semanas = 0;
-            double cTenendia = Convert.ToDouble(txtTenencia.Text.ToString());
+            double cTenencia = Convert.ToDouble(txtTenencia.Text.ToString());
             double cAgotamiento = Convert.ToDouble(txtAgotamiento.Text.ToString());
             double cPedido = Convert.ToDouble(txtPedido.Text.ToString());
 
@@ -233,7 +233,7 @@ namespace TP3SIM
                         }
                         else { costoAgotamiento = 0; }//ver agotamiento
                         pide = "SI";
-                        costoPedido = 200;
+                        costoPedido = cPedido;
 
                         yaPidio = true;
                         random_demora = rnd.NextDouble();
@@ -248,7 +248,7 @@ namespace TP3SIM
                         {
                             agotamiento = Math.Abs(stock_Final);
                             stock_Final = 0;
-                            costoAgotamiento = agotamiento * 50;
+                            costoAgotamiento = agotamiento * cAgotamiento;
                         }
                         else { costoAgotamiento = 0; }//ver agotamiento
                     }
@@ -257,7 +257,7 @@ namespace TP3SIM
                 }
                 semanas = i;
                 //stock_Inicial = stock_Final;
-                costoTenencia = stock_Final * 30;
+                costoTenencia = stock_Final * cTenencia ;
                 costoTotal = costoTenencia + costoPedido + costoAgotamiento;
                 costoAcumulado += costoTotal;
                 acumFalladas += cantidadFalladas;
