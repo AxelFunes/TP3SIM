@@ -57,7 +57,7 @@ namespace TP3SIM
         double costoAcumulado;
         int acumFalladas = 0;
 
-        bool yaPidio=false;
+        bool yaPidio;
         
 
         private void btn_simular_Click(object sender, EventArgs e)
@@ -65,7 +65,7 @@ namespace TP3SIM
             costoAcumulado = 0;
             stock_Inicial = 7;
             acumFalladas=0;
-
+            yaPidio = false;
 
             if (txt_simulacion.Text != "" && txt_desde.Text != "" && txt_hasta.Text != "" && txtDemora0.Text != "" && txtDemora1.Text != "" && txtDemora2.Text != "" && txtFallaNo.Text != "" && txtFallaSi.Text != "" && txtProb0.Text != "" && txtProb1.Text != "" && txtProb2.Text != "" && txtProb3.Text != "" && txtTenencia.Text != "" && txtAgotamiento.Text != "" && txtPedido.Text != "")
             {
@@ -101,49 +101,8 @@ namespace TP3SIM
 
 
                             if (desde < simulaciones && hasta > desde && hasta <= simulaciones)
-                            {
-                                //hasta = desde + 400; //Consultar si el hasta se ingresa por parametro
-                                //txt_hasta.Text = Convert.ToString(desde + 400);
-
-
+                            {                              
                                 simulacion(simulaciones, desde, hasta);
-
-
-                                //cargarGrilla();
-
-
-                                //if (hasta > simulaciones)
-                                //{
-                                //    for (int i = 0; i < (simulaciones - desde); i++)
-                                //    {
-                                //        simulacion();
-                                //        cargarGrilla();
-                                //    }
-                                //}
-                                //else
-                                //{
-                                //    for (int i = 0; i < 400; i++)
-                                //    {
-                                //        simulacion();
-                                //        cargarGrilla();
-                                //    }
-
-                                //    for (int i = 0; i < (simulaciones - hasta - 1); i++)
-                                //    {
-                                //        simulacion();
-                                //    }
-
-                                //    if (hasta != simulaciones)
-                                //    {
-                                //        simulacion();
-                                //        cargarGrilla();
-                                //    }
-
-                                //}
-
-
-
-
 
                             }
                             else
@@ -211,7 +170,7 @@ namespace TP3SIM
                 random_demanda = rnd.NextDouble();
                 BuscarDemanda();
 
-                if (/*pide == "SI" &&*/ llegada == i && semanas!= 0)
+                if ( llegada == i && semanas!= 0)
                 {
                     yaPidio = false;
                     cantidadFalladas = 0;
@@ -237,7 +196,7 @@ namespace TP3SIM
                             stock_Final = 0;
                             costoAgotamiento = agotamiento * 50;
                         }
-                        else { costoAgotamiento = 0; }//ver agotamiento
+                        else { costoAgotamiento = 0; } //reseteo para el acumulado
                         pide = "SI";
                         costoPedido = cPedido;
 
@@ -249,17 +208,17 @@ namespace TP3SIM
                     }
                     else //VEER
                     {
-                        costoPedido = 0;
+                        costoPedido = 0; //reseteo para el acumulado
                         if (stock_Final < 0)
                         {
                             agotamiento = Math.Abs(stock_Final);
                             stock_Final = 0;
                             costoAgotamiento = agotamiento * cAgotamiento;
                         }
-                        else { costoAgotamiento = 0; }//ver agotamiento
+                        else { costoAgotamiento = 0; } //reseteo para el acumulado
                     }
 
-                    cantidadFalladas=0;
+                    cantidadFalladas=0; //reseteo para el acumulado
                 }
                 semanas = i;
                 //stock_Inicial = stock_Final;
@@ -270,128 +229,14 @@ namespace TP3SIM
                 if (semanas >= desde && semanas <= hasta)
                 {
                     cargarGrilla(semanas);
+                    stock_Inicial = stock_Final; //Stock final pasa a ser el inicial en la siguiente simulacion
                 }
                 if (semanas == experimentos && hasta!=experimentos)
                 {
                     cargarGrilla(semanas);
                 }
             }
-            //pide = "NO";
-
-            //semanas++;
-            //random_demanda = rnd.NextDouble();
-            //BuscarDemanda();
-
-            //if (/*pide == "SI" &&*/ llegada == semanas)
-            //{
-            //    yaPidio = false;
-            //    cantidadFalladas = 0;
-
-            //    random_falla1 = rnd.NextDouble();
-            //    random_falla2 = rnd.NextDouble();
-            //    random_falla3 = rnd.NextDouble();
-            //    random_falla4 = rnd.NextDouble();
-            //    random_falla5 = rnd.NextDouble();
-            //    random_falla6 = rnd.NextDouble();
-            //    BuscarFalla(random_falla1, random_falla2, random_falla3, random_falla4, random_falla5, random_falla6);
-            //    stock_Final = stock_Inicial + 6 - cantidadFalladas;
-
-            //}
-            //else
-            //{
-            //    stock_Final = stock_Inicial - demanda;
-            //    if (stock_Final < 3 && yaPidio==false)
-            //    {
-            //        if (stock_Final < 0) 
-            //        { 
-            //            agotamiento = Math.Abs(stock_Final); 
-            //            stock_Final = 0;
-            //            costoAgotamiento = agotamiento * 50;
-            //        }
-            //        pide = "SI";
-            //        costoPedido = 200;
-
-            //        yaPidio = true;
-            //        random_demora = rnd.NextDouble();
-            //        BuscarDemora();
-            //        llegada = semanas + demora;
-
-            //    }
-            //    else //VEER
-            //    {
-            //        if (stock_Final < 0)
-            //        {
-            //            agotamiento = Math.Abs(stock_Final);
-            //            stock_Final = 0;
-            //            costoAgotamiento = agotamiento * 50;
-            //        }
-            //    }
-            //}
-            //stock_Inicial = stock_Final;
-
-            //costoTenencia = stock_Final * 30;
-
-            //random_pedido = rnd.NextDouble();
-
-            /*
-            if (stockRemanenteAnterior >= 0)
-            {
-                BuscarPedido();
-                pedidoNeto = pedido;
-                stockRemanenteActual = stockRemanenteAnterior - demanda + pedidoNeto;
-                stockRemanenteAnterior = stockRemanenteActual;
-
-            }
-            else
-            {
-                BuscarPedido();
-                pedidoNeto = pedido + stockRemanenteAnterior;
-                stockRemanenteActual = pedidoNeto - demanda;
-                stockRemanenteAnterior = stockRemanenteActual;
-                stockReal = 0;
-            }
-            if (stockRemanenteActual < 0)
-            {
-                stockReal = 0;
-            }
-            else
-            {
-                stockReal = stockRemanenteActual;
-            }
-
-            if (stockReal <= 20000)
-            {
-                costoMantenimiento = stockReal * 2500; // el costo es de 2500 por m2 y el stock no supera los 20000
-                costoSobrepaso = 0;
-                excedenteStock = 0;
-            }
-            else
-            {
-                costoMantenimiento = 20000 * 2500; // el costo es de 2500 por m2 y el stock supera los 20000
-                excedenteStock = (stockReal - 20000);
-                costoSobrepaso = excedenteStock * 5000; // el costo de sobrepaso es de 5000 por m2 que se exceda el stock de 20000.
-            }
-
-            costoPedido = 25500;
-            costoTotal = costoMantenimiento + costoPedido + costoSobrepaso;
-            porcentajeCosto = costoTotal / semanas;
-
-
-            if (porcentajeCosto > porcentajeMaxActual)
-            {
-                porcentajeMaxActual = porcentajeCosto;
-            }
-            if (semanas > 1)
-            {
-                if (porcentajeCosto < porcentajeMinActual)
-                {
-                    porcentajeMinActual = porcentajeCosto;
-                }
-            }
-            else
-            {
-                porcentajeMinActual = porcentajeCosto;
-            }*/
+            
         }
 
         public void BuscarDemora()
@@ -496,7 +341,7 @@ namespace TP3SIM
 
                 }
             }
-            stock_Inicial = stock_Final;//Ver donde queda mejor
+            //stock_Inicial = stock_Final; //Ver donde queda mejor
 
 
         }
