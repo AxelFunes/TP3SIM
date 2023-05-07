@@ -62,6 +62,11 @@ namespace TP3SIM
 
         private void btn_simular_Click(object sender, EventArgs e)
         {
+            costoAcumulado = 0;
+            stock_Inicial = 7;
+            acumFalladas=0;
+
+
             if (txt_simulacion.Text != "" && txt_desde.Text != "" && txt_hasta.Text != "" && txtDemora0.Text != "" && txtDemora1.Text != "" && txtDemora2.Text != "" && txtFallaNo.Text != "" && txtFallaSi.Text != "" && txtProb0.Text != "" && txtProb1.Text != "" && txtProb2.Text != "" && txtProb3.Text != "" && txtTenencia.Text != "" && txtAgotamiento.Text != "" && txtPedido.Text != "")
             {
                 double p0 = Convert.ToDouble(txtProb0.Text);
@@ -95,7 +100,7 @@ namespace TP3SIM
                             //limpiarVariables();
 
 
-                            if (desde < simulaciones && hasta > desde && hasta < simulaciones)
+                            if (desde < simulaciones && hasta > desde && hasta <= simulaciones)
                             {
                                 //hasta = desde + 400; //Consultar si el hasta se ingresa por parametro
                                 //txt_hasta.Text = Convert.ToString(desde + 400);
@@ -189,6 +194,7 @@ namespace TP3SIM
             txtAgotamiento.Clear();
             txtPedido.Clear();
             txtTenencia.Clear();
+            dgv_simulaciones.Rows.Clear();
         }
         public void simulacion(int experimentos, int desde, int hasta)
         {
@@ -265,7 +271,7 @@ namespace TP3SIM
                 {
                     cargarGrilla(semanas);
                 }
-                if (semanas == experimentos)
+                if (semanas == experimentos && hasta!=experimentos)
                 {
                     cargarGrilla(semanas);
                 }
@@ -492,6 +498,12 @@ namespace TP3SIM
             }
             stock_Inicial = stock_Final;//Ver donde queda mejor
 
+
+        }
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            limpiarTxt();
 
         }
     }
