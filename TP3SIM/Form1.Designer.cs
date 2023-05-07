@@ -109,6 +109,10 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.txt_StockInicial = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.txt_Renovacion = new System.Windows.Forms.TextBox();
+            this.label22 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_simulaciones)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -172,7 +176,7 @@
             dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgv_simulaciones.DefaultCellStyle = dataGridViewCellStyle20;
             this.dgv_simulaciones.GridColor = System.Drawing.Color.Black;
-            this.dgv_simulaciones.Location = new System.Drawing.Point(27, 234);
+            this.dgv_simulaciones.Location = new System.Drawing.Point(27, 305);
             this.dgv_simulaciones.Name = "dgv_simulaciones";
             dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle21.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(251)))), ((int)(((byte)(235)))));
@@ -188,7 +192,7 @@
             dataGridViewCellStyle22.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(73)))), ((int)(((byte)(85)))), ((int)(((byte)(121)))));
             dataGridViewCellStyle22.SelectionForeColor = System.Drawing.Color.White;
             this.dgv_simulaciones.RowsDefaultCellStyle = dataGridViewCellStyle22;
-            this.dgv_simulaciones.Size = new System.Drawing.Size(1577, 462);
+            this.dgv_simulaciones.Size = new System.Drawing.Size(1577, 481);
             this.dgv_simulaciones.TabIndex = 11;
             // 
             // Column1
@@ -443,7 +447,7 @@
             // 
             // txt_hasta
             // 
-            this.txt_hasta.Location = new System.Drawing.Point(157, 96);
+            this.txt_hasta.Location = new System.Drawing.Point(166, 96);
             this.txt_hasta.Name = "txt_hasta";
             this.txt_hasta.Size = new System.Drawing.Size(116, 21);
             this.txt_hasta.TabIndex = 9;
@@ -451,7 +455,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(82, 64);
+            this.label2.Location = new System.Drawing.Point(84, 66);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(42, 13);
             this.label2.TabIndex = 12;
@@ -459,7 +463,7 @@
             // 
             // txt_desde
             // 
-            this.txt_desde.Location = new System.Drawing.Point(157, 60);
+            this.txt_desde.Location = new System.Drawing.Point(166, 60);
             this.txt_desde.Name = "txt_desde";
             this.txt_desde.Size = new System.Drawing.Size(116, 21);
             this.txt_desde.TabIndex = 8;
@@ -475,7 +479,7 @@
             // 
             // txt_simulacion
             // 
-            this.txt_simulacion.Location = new System.Drawing.Point(157, 28);
+            this.txt_simulacion.Location = new System.Drawing.Point(166, 28);
             this.txt_simulacion.Name = "txt_simulacion";
             this.txt_simulacion.Size = new System.Drawing.Size(116, 21);
             this.txt_simulacion.TabIndex = 7;
@@ -486,8 +490,8 @@
             this.btn_simular.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_simular.Font = new System.Drawing.Font("Bahnschrift SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_simular.ForeColor = System.Drawing.Color.Black;
-            this.btn_simular.Location = new System.Drawing.Point(232, 175);
-            this.btn_simular.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
+            this.btn_simular.Location = new System.Drawing.Point(234, 247);
+            this.btn_simular.Margin = new System.Windows.Forms.Padding(0);
             this.btn_simular.Name = "btn_simular";
             this.btn_simular.Size = new System.Drawing.Size(94, 27);
             this.btn_simular.TabIndex = 10;
@@ -750,7 +754,7 @@
             this.btnReset.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnReset.Font = new System.Drawing.Font("Bahnschrift SemiBold", 9.75F, System.Drawing.FontStyle.Bold);
             this.btnReset.ForeColor = System.Drawing.Color.Black;
-            this.btnReset.Location = new System.Drawing.Point(363, 175);
+            this.btnReset.Location = new System.Drawing.Point(365, 247);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(88, 27);
             this.btnReset.TabIndex = 47;
@@ -835,6 +839,10 @@
             // groupBox5
             // 
             this.groupBox5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(251)))), ((int)(((byte)(235)))));
+            this.groupBox5.Controls.Add(this.txt_Renovacion);
+            this.groupBox5.Controls.Add(this.label22);
+            this.groupBox5.Controls.Add(this.txt_StockInicial);
+            this.groupBox5.Controls.Add(this.label12);
             this.groupBox5.Controls.Add(this.txt_desde);
             this.groupBox5.Controls.Add(this.txt_simulacion);
             this.groupBox5.Controls.Add(this.label1);
@@ -842,19 +850,51 @@
             this.groupBox5.Controls.Add(this.txt_hasta);
             this.groupBox5.Controls.Add(this.label3);
             this.groupBox5.ForeColor = System.Drawing.Color.Black;
-            this.groupBox5.Location = new System.Drawing.Point(178, 21);
+            this.groupBox5.Location = new System.Drawing.Point(174, 21);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(307, 129);
+            this.groupBox5.Size = new System.Drawing.Size(307, 193);
             this.groupBox5.TabIndex = 51;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "SIMULACIONES";
+            // 
+            // txt_StockInicial
+            // 
+            this.txt_StockInicial.Location = new System.Drawing.Point(166, 129);
+            this.txt_StockInicial.Name = "txt_StockInicial";
+            this.txt_StockInicial.Size = new System.Drawing.Size(116, 21);
+            this.txt_StockInicial.TabIndex = 15;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(84, 132);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(76, 13);
+            this.label12.TabIndex = 16;
+            this.label12.Text = "Stock Inicial";
+            // 
+            // txt_Renovacion
+            // 
+            this.txt_Renovacion.Location = new System.Drawing.Point(166, 159);
+            this.txt_Renovacion.Name = "txt_Renovacion";
+            this.txt_Renovacion.Size = new System.Drawing.Size(116, 21);
+            this.txt_Renovacion.TabIndex = 17;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(54, 162);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(106, 13);
+            this.label22.TabIndex = 18;
+            this.label22.Text = "Punto renovacion";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(101)))), ((int)(((byte)(135)))));
-            this.ClientSize = new System.Drawing.Size(1636, 708);
+            this.ClientSize = new System.Drawing.Size(1636, 798);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
@@ -890,7 +930,7 @@
         private System.Windows.Forms.TextBox txt_hasta;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txt_desde;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label1;        
         private System.Windows.Forms.TextBox txt_simulacion;
         private System.Windows.Forms.Button btn_simular;
         private System.Windows.Forms.Label label4;
@@ -955,6 +995,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column25;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column26;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column27;
+        private System.Windows.Forms.TextBox txt_StockInicial;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox txt_Renovacion;
+        private System.Windows.Forms.Label label22;
     }
 }
 

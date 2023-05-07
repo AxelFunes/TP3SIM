@@ -35,8 +35,8 @@ namespace TP3SIM
         double random_falla5;
         double random_falla6;
 
-        int stock_Inicial = 7;
-        int stock_Final;
+        double stock_Inicial;
+        double stock_Final;
         string fallada1="";
         string fallada2 = "";
         string fallada3 = "";
@@ -63,7 +63,7 @@ namespace TP3SIM
         private void btn_simular_Click(object sender, EventArgs e)
         {
             costoAcumulado = 0;
-            stock_Inicial = 7;
+            stock_Inicial = Convert.ToDouble(txt_StockInicial.Text);
             
             yaPidio = false;
             llegada = 0; //Para que no muestre el ultimo valor que quedo guardado cuando se simula nuevamente
@@ -83,7 +83,6 @@ namespace TP3SIM
                 double d0 = double.Parse(txtDemora0.Text.ToString());
                 double d1 = double.Parse(txtDemora1.Text.ToString());
                 double d2 = double.Parse(txtDemora2.Text.ToString());
-                //double sumaD = Math.Round(d0 + d1 + d2);
                 double sumaD = d0 + d1 + d2;
 
                 double f0 = Convert.ToDouble(txtFallaNo.Text);
@@ -144,8 +143,40 @@ namespace TP3SIM
             }
             else
             {
-                MessageBox.Show("No ingreso ningun dato correcto");
-                //limpiarTxt();
+                if (txt_simulacion.Text == "" || txt_desde.Text == "" || txt_hasta.Text == "") //valida el box de simulaciones
+                {
+                    if (txt_simulacion.Text == "")
+                    {
+                        MessageBox.Show("Por favor, ingrese la cantidad de semanas.");
+                    }
+                    else
+                    {
+                        if (txt_desde.Text == "")
+                        {
+                            MessageBox.Show("Ingrese el valor DESDE.");
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("Ingrese la cantidad de iteraciones.");
+                        }
+                    }
+                    
+                }
+                if(txtDemora0.Text == "" || txtDemora1.Text == "" || txtDemora2.Text == "")
+                {
+                    MessageBox.Show("Verifique que todas las frecuencias de tiempo de entrega esten cargadas. ");
+                    
+                }
+                if (txtProb0.Text == "" || txtProb1.Text == "" || txtProb2.Text == "" || txtProb3.Text != "")
+                {
+                    MessageBox.Show("Verifique que todas las probabilidades de demanda esten cargadas. ");
+                    
+                }
+                if(txtTenencia.Text == "" || txtAgotamiento.Text == "" || txtPedido.Text != "")
+                {
+                    MessageBox.Show("Verifique que todos los costos esten cargados. ");
+                }
             }
         }
 
@@ -208,7 +239,7 @@ namespace TP3SIM
                         {
                             agotamiento = Math.Abs(stock_Final);
                             stock_Final = 0;
-                            costoAgotamiento = agotamiento * 50;
+                            costoAgotamiento = agotamiento * cAgotamiento;
                         }
                         else { costoAgotamiento = 0; } //reseteo para el acumulado
                         pide = "SI";
@@ -375,5 +406,7 @@ namespace TP3SIM
             limpiarTxt();
 
         }
+
+        
     }
 }
