@@ -52,7 +52,7 @@ namespace TP3SIM
         double costoTenencia;
         double costoPedido = 0;
         double costoAgotamiento;
-        int agotamiento;
+        double agotamiento;
         double costoTotal;
         double costoAcumulado;
         
@@ -63,13 +63,16 @@ namespace TP3SIM
         private void btn_simular_Click(object sender, EventArgs e)
         {
             costoAcumulado = 0;
-            stock_Inicial = Convert.ToDouble(txt_StockInicial.Text);
+            //stock_Inicial = Convert.ToDouble(txt_StockInicial.Text);
+            
+            
             
             yaPidio = false;
             llegada = 0; //Para que no muestre el ultimo valor que quedo guardado cuando se simula nuevamente
 
-            if (txt_simulacion.Text != "" && txt_desde.Text != "" && txt_hasta.Text != "" && txtDemora0.Text != "" && txtDemora1.Text != "" && txtDemora2.Text != "" && txtFallaNo.Text != "" && txtFallaSi.Text != "" && txtProb0.Text != "" && txtProb1.Text != "" && txtProb2.Text != "" && txtProb3.Text != "" && txtTenencia.Text != "" && txtAgotamiento.Text != "" && txtPedido.Text != "")
+            if (txt_Renovacion.Text!="" && txt_StockInicial.Text!= ""&& txt_simulacion.Text != "" && txt_desde.Text != "" && txt_hasta.Text != "" && txtDemora0.Text != "" && txtDemora1.Text != "" && txtDemora2.Text != "" && txtFallaNo.Text != "" && txtFallaSi.Text != "" && txtProb0.Text != "" && txtProb1.Text != "" && txtProb2.Text != "" && txtProb3.Text != "" && txtTenencia.Text != "" && txtAgotamiento.Text != "" && txtPedido.Text != "")
             {
+                stock_Inicial = Convert.ToDouble(txt_StockInicial.Text);
                 double p0 = Convert.ToDouble(txtProb0.Text);
                 double p1 = Convert.ToDouble(txtProb1.Text);
                 double p2 = Convert.ToDouble(txtProb2.Text);
@@ -161,22 +164,53 @@ namespace TP3SIM
                             MessageBox.Show("Ingrese la cantidad de iteraciones.");
                         }
                     }
+
+                }
+                else
+                {
+                    if (txtDemora0.Text == "" || txtDemora1.Text == "" || txtDemora2.Text == "")
+                    {
+                        MessageBox.Show("Verifique que todas las frecuencias de tiempo de entrega esten cargadas. ");
+
+                    }
+                    else
+                    {
+                        if (txtProb0.Text == "" || txtProb1.Text == "" || txtProb2.Text == "" || txtProb3.Text == "")
+                        {
+                            MessageBox.Show("Verifique que todas las probabilidades de demanda esten cargadas. ");
+
+                        }
+                        else
+                        {
+                            if (txtTenencia.Text == "" || txtAgotamiento.Text == "" || txtPedido.Text == "")
+                            {
+                                MessageBox.Show("Verifique que todos los costos esten cargados. ");
+                            }
+                            else
+                            {
+                                if (txt_StockInicial.Text == "")
+                                {
+                                    MessageBox.Show("Verifique que el stock incial este cargado. ");
+                                }
+                                else
+                                {
+                                    if (txt_Renovacion.Text == "")
+                                    {
+                                        MessageBox.Show("Verifique que el punto de renovacion este cargado. ");
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Verifique que los campos de las probabilidades de falla esten cargadas");
+                                    }
+                                    
+                                }
+                            }
+                        }
+                        
+                    }
                     
                 }
-                if(txtDemora0.Text == "" || txtDemora1.Text == "" || txtDemora2.Text == "")
-                {
-                    MessageBox.Show("Verifique que todas las frecuencias de tiempo de entrega esten cargadas. ");
-                    
-                }
-                if (txtProb0.Text == "" || txtProb1.Text == "" || txtProb2.Text == "" || txtProb3.Text != "")
-                {
-                    MessageBox.Show("Verifique que todas las probabilidades de demanda esten cargadas. ");
-                    
-                }
-                if(txtTenencia.Text == "" || txtAgotamiento.Text == "" || txtPedido.Text != "")
-                {
-                    MessageBox.Show("Verifique que todos los costos esten cargados. ");
-                }
+                
             }
         }
 
@@ -201,7 +235,7 @@ namespace TP3SIM
         }
         public void simulacion(int experimentos, int desde, int hasta)
         {
-            
+            double pRenovacion = Convert.ToDouble(txt_Renovacion.Text);
             int semanas = 0;
             double cTenencia = Convert.ToDouble(txtTenencia.Text.ToString());
             double cAgotamiento = Convert.ToDouble(txtAgotamiento.Text.ToString());
@@ -233,7 +267,7 @@ namespace TP3SIM
                 else
                 {
                     stock_Final = stock_Inicial - demanda;
-                    if (stock_Final < 3 && yaPidio == false)
+                    if (stock_Final <= pRenovacion && yaPidio == false)
                     {
                         if (stock_Final < 0)
                         {
