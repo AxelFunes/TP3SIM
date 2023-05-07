@@ -55,7 +55,7 @@ namespace TP3SIM
         int agotamiento;
         double costoTotal;
         double costoAcumulado;
-        int acumFalladas = 0;
+        
 
         bool yaPidio;
         
@@ -64,8 +64,9 @@ namespace TP3SIM
         {
             costoAcumulado = 0;
             stock_Inicial = 7;
-            acumFalladas=0;
+            
             yaPidio = false;
+            llegada = 0; //Para que no muestre el ultimo valor que quedo guardado cuando se simula nuevamente
 
             if (txt_simulacion.Text != "" && txt_desde.Text != "" && txt_hasta.Text != "" && txtDemora0.Text != "" && txtDemora1.Text != "" && txtDemora2.Text != "" && txtFallaNo.Text != "" && txtFallaSi.Text != "" && txtProb0.Text != "" && txtProb1.Text != "" && txtProb2.Text != "" && txtProb3.Text != "" && txtTenencia.Text != "" && txtAgotamiento.Text != "" && txtPedido.Text != "")
             {
@@ -75,11 +76,15 @@ namespace TP3SIM
                 double p3 = Convert.ToDouble(txtProb3.Text);
                 double sumaP = p0 + p1 + p2 + p3;
 
+                double cTenencia = double.Parse(txtTenencia.Text.ToString());
+                double cAgotamiento = double.Parse(txtAgotamiento.Text.ToString());
+                double cPedido = double.Parse(txtPedido.Text.ToString());
 
                 double d0 = double.Parse(txtDemora0.Text.ToString());
                 double d1 = double.Parse(txtDemora1.Text.ToString());
                 double d2 = double.Parse(txtDemora2.Text.ToString());
-                double sumaD = Math.Round(d0 + d1 + d2);
+                //double sumaD = Math.Round(d0 + d1 + d2);
+                double sumaD = d0 + d1 + d2;
 
                 double f0 = Convert.ToDouble(txtFallaNo.Text);
                 double f1 = Convert.ToDouble(txtFallaSi.Text);
@@ -91,25 +96,33 @@ namespace TP3SIM
                     {
                         if ((sumaF == 100) && (f0 > 0 && f1 > 0)) //Valida que las probabilidades sumen 100% y no sean menor a 0
                         {
-                            simulaciones = Convert.ToInt32(txt_simulacion.Text.ToString());
-                            desde = Convert.ToInt32(txt_desde.Text.ToString());
-                            hasta = Convert.ToInt32(txt_hasta.Text.ToString());
+                            if (cTenencia>=0 && cAgotamiento>=0 && cPedido>=0) //Valida que los costos no sean negativos
+                            {
+                                simulaciones = Convert.ToInt32(txt_simulacion.Text.ToString());
+                                desde = Convert.ToInt32(txt_desde.Text.ToString());
+                                hasta = Convert.ToInt32(txt_hasta.Text.ToString()) + desde;
 
-                            //semanas = 0;
-                            dgv_simulaciones.Rows.Clear();
-                            //limpiarVariables();
+                                //semanas = 0;
+                                dgv_simulaciones.Rows.Clear();
+                                //limpiarVariables();
 
 
-                            if (desde < simulaciones && hasta > desde && hasta <= simulaciones)
-                            {                              
-                                simulacion(simulaciones, desde, hasta);
+                                if (desde < simulaciones && hasta > desde && hasta <= simulaciones)
+                                {
+                                    simulacion(simulaciones, desde, hasta);
 
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Por Favor seleccione un DESDE menor a la cantidad de simulaciones o un Hasta mayor que Desde");
+                                    //limpiarTxt();
+                                }
                             }
                             else
                             {
-                                MessageBox.Show("Por Favor seleccione un DESDE menor a la cantidad de simulaciones o un Hasta mayor que Desde");
-                                //limpiarTxt();
+                                MessageBox.Show("Los costos no pueden ser negativos.");
                             }
+                            
                         }
                         else
                         {
@@ -157,6 +170,7 @@ namespace TP3SIM
         }
         public void simulacion(int experimentos, int desde, int hasta)
         {
+            
             int semanas = 0;
             double cTenencia = Convert.ToDouble(txtTenencia.Text.ToString());
             double cAgotamiento = Convert.ToDouble(txtAgotamiento.Text.ToString());
@@ -221,20 +235,21 @@ namespace TP3SIM
                     cantidadFalladas=0; //reseteo para el acumulado
                 }
                 semanas = i;
-                //stock_Inicial = stock_Final;
+                
                 costoTenencia = stock_Final * cTenencia ;
                 costoTotal = costoTenencia + costoPedido + costoAgotamiento;
                 costoAcumulado += costoTotal;
-                acumFalladas += cantidadFalladas;
+                
                 if (semanas >= desde && semanas <= hasta)
                 {
                     cargarGrilla(semanas);
-                    stock_Inicial = stock_Final; //Stock final pasa a ser el inicial en la siguiente simulacion
+                    
                 }
                 if (semanas == experimentos && hasta!=experimentos)
                 {
                     cargarGrilla(semanas);
                 }
+                stock_Inicial = stock_Final;
             }
             
         }
@@ -312,36 +327,45 @@ namespace TP3SIM
 
         public void cargarGrilla(int semanas)
         {
-            if (pide == "SI")
+            if (semanas==0)
             {
                 dgv_simulaciones.Rows.Add(semanas, Math.Round(random_demanda, 4),
-                demanda, stock_Inicial, "", "", "", "", "", "", "", "", "", "", "", "", "", stock_Final, pide, Math.Round(random_demora, 4), demora, llegada, costoTenencia, costoPedido, costoAgotamiento, costoTotal, costoAcumulado, acumFalladas);
-
+                    demanda, stock_Inicial, "", "", "", "", "", "", "", "", "", "", "", "", "", stock_Final, pide, "" /*Math.Round(random_demora, 4)*/, "", "", costoTenencia, "", costoAgotamiento, costoTotal, costoAcumulado);
             }
             else
             {
-                if (semanas == llegada)
+                if (pide == "SI")
                 {
                     dgv_simulaciones.Rows.Add(semanas, Math.Round(random_demanda, 4),
-                    demanda, stock_Inicial, Math.Round(random_falla1, 4), fallada1, Math.Round(random_falla2, 4), fallada2, Math.Round(random_falla3, 4), fallada3, Math.Round(random_falla4, 4), fallada4, Math.Round(random_falla5, 4), fallada5, Math.Round(random_falla6, 4), fallada6, cantidadFalladas, stock_Final, pide, "", ""/* Math.Round(random_demora, 4), demora*/, llegada, costoTenencia, "", costoAgotamiento, costoTotal, costoAcumulado, acumFalladas);
+                    demanda, stock_Inicial, "", "", "", "", "", "", "", "", "", "", "", "", "", stock_Final, pide, Math.Round(random_demora, 4), demora, llegada, costoTenencia, costoPedido, costoAgotamiento, costoTotal, costoAcumulado);
 
                 }
                 else
                 {
-                    if (llegada < semanas)
+                    if (semanas == llegada)
                     {
                         dgv_simulaciones.Rows.Add(semanas, Math.Round(random_demanda, 4),
-                    demanda, stock_Inicial, "", "", "", "", "", "", "", "", "", "", "", "", "", stock_Final, pide, "" /*Math.Round(random_demora, 4)*/, "", "", costoTenencia, "", costoAgotamiento, costoTotal, costoAcumulado, acumFalladas);
+                        demanda, stock_Inicial, Math.Round(random_falla1, 4), fallada1, Math.Round(random_falla2, 4), fallada2, Math.Round(random_falla3, 4), fallada3, Math.Round(random_falla4, 4), fallada4, Math.Round(random_falla5, 4), fallada5, Math.Round(random_falla6, 4), fallada6, cantidadFalladas, stock_Final, pide, "", ""/* Math.Round(random_demora, 4), demora*/, llegada, costoTenencia, "", costoAgotamiento, costoTotal, costoAcumulado);
+
                     }
                     else
                     {
-                        dgv_simulaciones.Rows.Add(semanas, Math.Round(random_demanda, 4),
-                    demanda, stock_Inicial, "", "", "", "", "", "", "", "", "", "", "", "", "", stock_Final, pide, "" /* Math.Round(random_demora, 4)*/, "", llegada, costoTenencia, "", costoAgotamiento, costoTotal, costoAcumulado, acumFalladas);
-                    }
+                        if (llegada < semanas)
+                        {
+                            dgv_simulaciones.Rows.Add(semanas, Math.Round(random_demanda, 4),
+                        demanda, stock_Inicial, "", "", "", "", "", "", "", "", "", "", "", "", "", stock_Final, pide, "" /*Math.Round(random_demora, 4)*/, "", "", costoTenencia, "", costoAgotamiento, costoTotal, costoAcumulado);
+                        }
+                        else
+                        {
+                            dgv_simulaciones.Rows.Add(semanas, Math.Round(random_demanda, 4),
+                        demanda, stock_Inicial, "", "", "", "", "", "", "", "", "", "", "", "", "", stock_Final, pide, "" /* Math.Round(random_demora, 4)*/, "", llegada, costoTenencia, "", costoAgotamiento, costoTotal, costoAcumulado);
+                        }
 
+                    }
                 }
             }
-            //stock_Inicial = stock_Final; //Ver donde queda mejor
+            
+            
 
 
         }
