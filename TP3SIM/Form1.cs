@@ -231,6 +231,8 @@ namespace TP3SIM
             txtAgotamiento.Clear();
             txtPedido.Clear();
             txtTenencia.Clear();
+            txt_StockInicial.Clear();
+            txt_Renovacion.Clear();
             dgv_simulaciones.Rows.Clear();
         }
         public void simulacion(int experimentos, int desde, int hasta)
