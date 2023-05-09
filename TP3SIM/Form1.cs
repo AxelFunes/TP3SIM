@@ -443,6 +443,9 @@ namespace TP3SIM
 
         }
 
-        
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            txt_simulacion.Focus();
+        }
     }
 }
