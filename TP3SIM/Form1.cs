@@ -263,8 +263,8 @@ namespace TP3SIM
                     random_falla5 = rnd.NextDouble();
                     random_falla6 = rnd.NextDouble();
                     BuscarFalla(random_falla1, random_falla2, random_falla3, random_falla4, random_falla5, random_falla6);
-                    stock_Final = stock_Inicial + 6 - cantidadFalladas;
-
+                    stock_Final = stock_Inicial - demanda + 6 - cantidadFalladas;
+                    
                 }
                 else
                 {
@@ -303,6 +303,7 @@ namespace TP3SIM
                 }
                 semanas = i;
                 
+                //calcula los costos, y el acumulado
                 costoTenencia = stock_Final * cTenencia ;
                 costoTotal = costoTenencia + costoPedido + costoAgotamiento;
                 costoAcumulado += costoTotal;
